@@ -64,7 +64,7 @@ You can use CocoaPods to include the desired Ad providers:
 
 If you are using MoPub you optionally can include the following adapters:
 
-  [`Charboost adapter`](/src/cordova/ios/mopub/charboost/src/deps)
+  [`Chartboost adapter`](/src/cordova/ios/mopub/chartboost/src/deps)
   [`AdMob adapter`](/src/cordova/ios/mopub/admob/src/deps)
   [`Millennial Media adapter`](/src/cordova/ios/mopub/millennial/src/deps)
 
@@ -122,7 +122,7 @@ Releases are deployed to Maven Central. You only have to add the desired depende
         compile 'com.ludei.ads.mopub:1.0.0' //MoPub Ad Provider
         compile 'com.ludei.ads.mopub.adcolony:1.0.0' //Optional MoPub AdColony adapter
         compile 'com.ludei.ads.mopub.admob:1.0.0' //Optional MoPub AdMob adapter
-        compile 'com.ludei.ads.mopub.charboost:1.0.0' //Optional MoPub Charboost adapter
+        compile 'com.ludei.ads.mopub.chartboost:1.0.0' //Optional MoPub Chartboost adapter
         compile 'com.ludei.ads.mopub.inmobi:1.0.0' //Optional MoPub InMobi adapter
         compile 'com.ludei.ads.mopub.greystripe:1.0.0' //Optional MoPub Greystriper adapter
         compile 'com.ludei.ads.mopub.millennialmedia:1.0.0' //Optional MoPub MillennialMedia adapter
@@ -160,7 +160,7 @@ interstitial.show();
 
 ###API Reference
 
-See [API Documentation](http://ludei.github.io/atomic-plugins-ads/dist/doc/js/Cocoon.Ad.html)
+See [API Documentation](http://ludei.github.io/cocoon-common/dist/doc/js/Cocoon.Ad.html)
 
 For a complete project that tests all the features provided in the API run the following command:
 
@@ -174,26 +174,26 @@ Cocoon.Ad class provides an easy to use Ads API that can be used with different 
 
 Releases are deployed to Cordova Plugin Registry. You only have to install the desired plugins using Cordova CLI, CocoonJS CLI or Ludei's Cocoon Cloud Server.
 
-    cordova plugin add com.ludei.ads.ios.admob; //AdMob plugin for iOS
-    cordova plugin add com.ludei.ads.ios.mopub; //MoPub plugin for iOS
-    cordova plugin add com.ludei.ads.android.admob; //AdMob plugin for Android
-    cordova plugin add com.ludei.ads.android.mopub; //MoPub plugin for Android
+    cordova plugin add cocoon-plugin-ads-ios-admob; //AdMob plugin for iOS
+    cordova plugin add cocoon-plugin-ads-ios-mopub; //MoPub plugin for iOS
+    cordova plugin add cocoon-plugin-ads-android-admob; //AdMob plugin for Android
+    cordova plugin add cocoon-plugin-ads-android-mopub; //MoPub plugin for Android
 
     //Optional MoPub adapters for iOS and Android
-    cordova plugin add com.ludei.ads.ios.mopub.charboost;
-    cordova plugin add com.ludei.ads.ios.mopub.admob;
-    cordova plugin add com.ludei.ads.ios.mopub.millennial;
-    cordova plugin add con.ludei.ads.android.adcolony;
-    cordova plugin add con.ludei.ads.android.admob;
-    cordova plugin add con.ludei.ads.android.charboost;
-    cordova plugin add con.ludei.ads.android.greystripe;
-    cordova plugin add con.ludei.ads.android.inmobi;
-    cordova plugin add con.ludei.ads.android.millennial;
+    cordova plugin add cocoon-plugin-ads-ios-mopub-adcolony;
+    cordova plugin add cocoon-plugin-ads-ios-mopub-admob;
+    cordova plugin add cocoon-plugin-ads-ios-mopub-chartboost;
+    cordova plugin add cocoon-plugin-ads-ios-mopub-millennial;
+    cordova plugin add cocoon-plugin-ads-android-mopub-adcolony;
+    cordova plugin add cocoon-plugin-ads-android-mopub-admob;
+    cordova plugin add cocoon-plugin-ads-android-mopub-chartboost;
+    cordova plugin add cocoon-plugin-ads-android-mopub-greystripe;
+    cordova plugin add cocoon-plugin-ads-android-mopub-inmobi;
+    cordova plugin add cocoon-plugin-ads-android-mopub-millennial;
 
-Include the following JavaScript files in your html project:
+The following JavaScript file is included automatically:
 
-[`cocoon.js`](src/cordova/js/external/cocoon.js)
-[`cocoon_ads.js`](src/cordova/js/cocoon_ads.js)
+[`cocoon_ads.js`](src/js/cocoon_ads.js)
 
 ###Example
 
@@ -214,7 +214,7 @@ service.configure({
          banner:"agltb3B1Yi1pbmNyDQsSBFNpdGUwwwwww",
          interstitial:"agltb3B1Yi1pbmNyDQsSBFNpdGUhhhhhh"
     }
-);
+});
 
 //Create banner: optional AdUnit and BannerSize arguments
 var banner = service.createBanner();
@@ -256,7 +256,7 @@ banner.setLayout(Cocoon.Ad.BannerLayout.CUSTOM);
 banner.setPosition(x,y);
 
 //Create interstitial: optional AdUnit argument
-interstitial = service.createInterstitial();
+var interstitial = service.createInterstitial();
 
 //Configure interstitial listeners
 interstitial.on("load", function(){

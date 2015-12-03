@@ -18,6 +18,9 @@ android {
         admob {
 
         }
+        chartboost {
+
+        }
     }
 
     buildTypes {
@@ -37,7 +40,7 @@ repositories {
         dirs mopub_adapters + 'adcolony/dist',
              mopub_adapters + 'admob/dist',
              mopub_adapters + 'millennialmedia/dist',
-             mopub_adapters + 'charboost/dist',
+             mopub_adapters + 'chartboost/dist',
              mopub_adapters + 'greystripe/dist',
              mopub_adapters + 'inmobi/dist'
     }
@@ -50,7 +53,7 @@ dependencies {
     mopubCompile project(':ads-mopub')
 
     //Optional MoPub Adapters
-    mopubCompile 'com.google.android.gms:play-services-ads:6.5.87' //admob-sdk
+    mopubCompile 'com.google.android.gms:play-services-ads:8.3.0' //admob-sdk
     mopubCompile (name:'adcolony-adapter', ext:'aar')
     mopubCompile (name:'admob-adapter', ext:'aar')
     mopubCompile (name:'millennialmedia-adapter', ext:'aar')
@@ -59,5 +62,7 @@ dependencies {
     mopubCompile (name:'inmobi-adapter', ext:'aar')
 
     admobCompile project(':ads-admob')
+
+    chartboostCompile project(':ads-chartboost')
 
 }

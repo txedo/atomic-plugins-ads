@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="com.ludei.ads.ios.common" version="1.0.0">
+        id="cocoon-plugin-ads-ios-common" version="1.0.0">
     <name>AdsCommon</name>
     <description>Cross platform Ads API for different Ad Providers. Full support for banners and interstitials</description>
     <license>MPL 2.0</license>
+    <repo>https://github.com/ludei/atomic-plugins-ads</repo>
     <keywords>cordova,ads,banner,interstitial,monetization,ad</keywords>
     <platform name="ios">
         <header-file src="src/deps/LDAdBanner.h" />
@@ -12,4 +13,6 @@
         <header-file src="src/LDAdServicePlugin.h" />
         <source-file src="src/LDAdServicePlugin.m" />
     </platform>
+
+    <dependency id="cocoon-plugin-ads-common" />
 </plugin>

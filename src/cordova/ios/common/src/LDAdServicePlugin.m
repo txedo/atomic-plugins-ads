@@ -33,6 +33,11 @@ static inline NSString * GET_ID(CDVInvokedUrlCommand * command)
     _interstitials = [NSMutableDictionary dictionary];
 }
 
+- (BOOL)shouldAllowRequestForURL:(NSURL *)url
+{
+    return YES;
+}
+
 -(void) configure:(CDVInvokedUrlCommand*) command
 {
     NSDictionary * data = [command argumentAtIndex:0 withDefault:@{} andClass:[NSDictionary class]];
@@ -84,6 +89,16 @@ static inline NSString * GET_ID(CDVInvokedUrlCommand * command)
     NSString * interstitialId = GET_ID(command);
     NSString * adunit = [command argumentAtIndex:1 withDefault:nil andClass:[NSString class]];
     LDAdInterstitial * interstitial = [_service createInterstitial:adunit];
+    interstitial.delegate = self;
+    [_interstitials setObject:interstitial forKey:interstitialId];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+}
+
+-(void) createRewardedVideo: (CDVInvokedUrlCommand*)command
+{
+    NSString * interstitialId = GET_ID(command);
+    NSString * adunit = [command argumentAtIndex:1 withDefault:nil andClass:[NSString class]];
+    LDAdInterstitial * interstitial = [_service createRewardedVideo:adunit];
     interstitial.delegate = self;
     [_interstitials setObject:interstitial forKey:interstitialId];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
@@ -226,6 +241,11 @@ static inline NSString * GET_ID(CDVInvokedUrlCommand * command)
 -(void)adInterstitialWillDisappear:(LDAdInterstitial *)interstitial
 {
     [self callListener:@[@"dismiss", [self findInterstitialId:interstitial]] callbackId:_bannerListenerId];
+}
+
+- (void)adInterstitialDidCompleteRewardedVideo:(LDAdInterstitial *)interstitial withReward:(int)reward
+{
+    [self callListener:@[@"reward", [self findInterstitialId:interstitial], [NSNumber numberWithInt:reward]] callbackId:_bannerListenerId];
 }
 
 #pragma mark Utils

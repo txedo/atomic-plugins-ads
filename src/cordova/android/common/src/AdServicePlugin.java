@@ -69,6 +69,11 @@ public class AdServicePlugin extends CordovaPlugin implements AdBanner.BannerLis
 			AdInterstitial interstitial = _interstitials.get(key);
 			interstitial.destroy();
 		}
+
+		for (String key: _banners.keySet()) {
+			BannerData banner = _banners.get(key);
+			banner.banner.destroy();
+		}
 	}
 	
 	public void configure(CordovaArgs args, CallbackContext ctx) {
@@ -126,6 +131,16 @@ public class AdServicePlugin extends CordovaPlugin implements AdBanner.BannerLis
 		String interstitialId = getId(args);
 		String adunit = args.isNull(1) ? null : args.optString(1);
 		AdInterstitial interstitial = _service.createInterstitial(this.cordova.getActivity(), adunit);
+		interstitial.setListener(this);
+		_interstitials.put(interstitialId, interstitial);
+		ctx.sendPluginResult(new PluginResult(Status.OK));
+	}
+
+	public void createRewardedVideo(CordovaArgs args, CallbackContext ctx) {
+
+		String interstitialId = getId(args);
+		String adunit = args.isNull(1) ? null : args.optString(1);
+		AdInterstitial interstitial = _service.createRewardedVideo(this.cordova.getActivity(), adunit);
 		interstitial.setListener(this);
 		_interstitials.put(interstitialId, interstitial);
 		ctx.sendPluginResult(new PluginResult(Status.OK));
@@ -277,7 +292,12 @@ public class AdServicePlugin extends CordovaPlugin implements AdBanner.BannerLis
     public void onDismissed(AdInterstitial interstitial) {
     	callListeners(_interstitialListener, "dismiss", findInterstitialId(interstitial));
     }
-	
+
+	@Override
+	public void onRewardCompleted(AdInterstitial interstitial, int quantity) {
+		callListeners(_interstitialListener, "reward", findInterstitialId(interstitial), quantity);
+	}
+
 	//Utility methods
 	
     
